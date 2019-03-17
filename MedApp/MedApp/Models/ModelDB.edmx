@@ -1,0 +1,898 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MedAppDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Diagnosis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Key" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Home" Type="int" Nullable="false" />
+          <Property Name="Housing" Type="int" />
+          <Property Name="Houseroom" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="9" />
+          <Property Name="Passport" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IDPost" Type="int" Nullable="false" />
+          <Property Name="Sector" Type="nchar" MaxLength="10" />
+          <Property Name="Cabinet" Type="int" />
+        </EntityType>
+        <EntityType Name="Medicament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="MedRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Birthday" Type="date" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Home" Type="int" Nullable="false" />
+          <Property Name="Housing" Type="int" />
+          <Property Name="Houseroom" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="9" />
+          <Property Name="Passport" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Sector" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="50" />
+          <Property Name="Post" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Begin_work" Type="time" Precision="0" Nullable="false" />
+          <Property Name="End_work" Type="time" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" Nullable="false" />
+          <Property Name="IdMedRecord" Type="int" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="0" Nullable="false" />
+          <Property Name="QueueNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDay" Type="int" Nullable="false" />
+          <Property Name="IdEmployee" Type="int" Nullable="false" />
+          <Property Name="IdShift" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Visiting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDEmployee" Type="int" Nullable="false" />
+          <Property Name="IDMedRecord" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Complaints" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StartDisease" Type="date" Nullable="false" />
+          <Property Name="StatePraesens" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Additionally" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "D:\STUDY\БДИСУБД\КУРСОВОЙ БДИСУБД\MEDAPP LAST STAGE\MEDAPP\MEDAPP\MEDAPP\MEDAPPDB.MDF.dbo.Visiting_Diagnosis" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Visiting_Diagnosis">
+          <Key>
+            <PropertyRef Name="IDVisiting" />
+            <PropertyRef Name="IDDiagnosis" />
+          </Key>
+          <Property Name="IDVisiting" Type="int" Nullable="false" />
+          <Property Name="IDDiagnosis" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "D:\STUDY\БДИСУБД\КУРСОВОЙ БДИСУБД\MEDAPP LAST STAGE\MEDAPP\MEDAPP\MEDAPP\MEDAPPDB.MDF.dbo.Visiting_Medicament" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Visiting_Medicament">
+          <Key>
+            <PropertyRef Name="IDVisiting" />
+            <PropertyRef Name="IDMedicament" />
+          </Key>
+          <Property Name="IDVisiting" Type="int" Nullable="false" />
+          <Property Name="IDMedicament" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Xrays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="varbinary" MaxLength="100" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IdMedRecord" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedRecord_Xrays">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="1" />
+          <End Role="Xrays" Type="Self.Xrays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Xrays">
+              <PropertyRef Name="IdMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_MedRecord">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="IdMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Day">
+          <End Role="Day" Type="Self.Day" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Shift">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdShift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Diagnosis_Diagnosis">
+          <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="1" />
+          <End Role="Visiting_Diagnosis" Type="Self.Visiting_Diagnosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diagnosis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting_Diagnosis">
+              <PropertyRef Name="IDDiagnosis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Diagnosis_Visiting">
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="1" />
+          <End Role="Visiting_Diagnosis" Type="Self.Visiting_Diagnosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting_Diagnosis">
+              <PropertyRef Name="IDVisiting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Medicament_Medicament">
+          <End Role="Medicament" Type="Self.Medicament" Multiplicity="1" />
+          <End Role="Visiting_Medicament" Type="Self.Visiting_Medicament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting_Medicament">
+              <PropertyRef Name="IDMedicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Medicament_Visiting">
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="1" />
+          <End Role="Visiting_Medicament" Type="Self.Visiting_Medicament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visiting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting_Medicament">
+              <PropertyRef Name="IDVisiting" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_MedRecord">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MedAppDBModelContainer">
+          <EntitySet Name="Day" EntityType="Self.Day" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicament" EntityType="Self.Medicament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedRecord" EntityType="Self.MedRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shift" EntityType="Self.Shift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visiting" EntityType="Self.Visiting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Xrays" EntityType="Self.Xrays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visiting_Diagnosis" EntityType="Self.Visiting_Diagnosis" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Visiting_Diagnosis].[IDVisiting] AS [IDVisiting], 
+    [Visiting_Diagnosis].[IDDiagnosis] AS [IDDiagnosis]
+    FROM [dbo].[Visiting_Diagnosis] AS [Visiting_Diagnosis]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Visiting_Medicament" EntityType="Self.Visiting_Medicament" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Visiting_Medicament].[IDVisiting] AS [IDVisiting], 
+    [Visiting_Medicament].[IDMedicament] AS [IDMedicament]
+    FROM [dbo].[Visiting_Medicament] AS [Visiting_Medicament]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedRecord_Xrays" Association="Self.FK_MedRecord_Xrays">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Xrays" EntitySet="Xrays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Employee" Association="Self.FK_Ticket_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_MedRecord" Association="Self.FK_Ticket_MedRecord">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Day" Association="Self.FK_Timetable_Day">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Employee" Association="Self.FK_Timetable_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Shift" Association="Self.FK_Timetable_Shift">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Diagnosis_Diagnosis" Association="Self.FK_Visiting_Diagnosis_Diagnosis">
+            <End Role="Diagnosis" EntitySet="Diagnosis" />
+            <End Role="Visiting_Diagnosis" EntitySet="Visiting_Diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Diagnosis_Visiting" Association="Self.FK_Visiting_Diagnosis_Visiting">
+            <End Role="Visiting" EntitySet="Visiting" />
+            <End Role="Visiting_Diagnosis" EntitySet="Visiting_Diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Employee" Association="Self.FK_Visiting_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Medicament_Medicament" Association="Self.FK_Visiting_Medicament_Medicament">
+            <End Role="Medicament" EntitySet="Medicament" />
+            <End Role="Visiting_Medicament" EntitySet="Visiting_Medicament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Medicament_Visiting" Association="Self.FK_Visiting_Medicament_Visiting">
+            <End Role="Visiting" EntitySet="Visiting" />
+            <End Role="Visiting_Medicament" EntitySet="Visiting_Medicament" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_MedRecord" Association="Self.FK_Visiting_MedRecord">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Day">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Day" FromRole="Day" ToRole="Timetable" />
+        </EntityType>
+        <EntityType Name="Diagnosis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Key" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Visiting" Relationship="Self.Visiting_Diagnosis" FromRole="Diagnosis" ToRole="Visiting" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Home" Type="Int32" Nullable="false" />
+          <Property Name="Housing" Type="Int32" />
+          <Property Name="Houseroom" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDPost" Type="Int32" Nullable="false" />
+          <Property Name="Sector" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Cabinet" Type="Int32" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Employee_Post" FromRole="Employee" ToRole="Post" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_Employee" FromRole="Employee" ToRole="Ticket" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Employee" FromRole="Employee" ToRole="Timetable" />
+          <NavigationProperty Name="Visiting" Relationship="Self.FK_Visiting_Employee" FromRole="Employee" ToRole="Visiting" />
+        </EntityType>
+        <EntityType Name="Medicament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Visiting" Relationship="Self.Visiting_Medicament" FromRole="Medicament" ToRole="Visiting" />
+        </EntityType>
+        <EntityType Name="MedRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Home" Type="Int32" Nullable="false" />
+          <Property Name="Housing" Type="Int32" />
+          <Property Name="Houseroom" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sector" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Organization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Post" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Xrays" Relationship="Self.FK_MedRecord_Xrays" FromRole="MedRecord" ToRole="Xrays" />
+          <NavigationProperty Name="Ticket" Relationship="Self.FK_Ticket_MedRecord" FromRole="MedRecord" ToRole="Ticket" />
+          <NavigationProperty Name="Visiting" Relationship="Self.FK_Visiting_MedRecord" FromRole="MedRecord" ToRole="Visiting" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Post" FromRole="Post" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Shift">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Begin_work" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="End_work" Type="Time" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Timetable" Relationship="Self.FK_Timetable_Shift" FromRole="Shift" ToRole="Timetable" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+          <Property Name="IdMedRecord" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Time" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="QueueNum" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Ticket_Employee" FromRole="Ticket" ToRole="Employee" />
+          <NavigationProperty Name="MedRecord" Relationship="Self.FK_Ticket_MedRecord" FromRole="Ticket" ToRole="MedRecord" />
+        </EntityType>
+        <EntityType Name="Timetable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDay" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" />
+          <Property Name="IdShift" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Day" Relationship="Self.FK_Timetable_Day" FromRole="Timetable" ToRole="Day" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Timetable_Employee" FromRole="Timetable" ToRole="Employee" />
+          <NavigationProperty Name="Shift" Relationship="Self.FK_Timetable_Shift" FromRole="Timetable" ToRole="Shift" />
+        </EntityType>
+        <EntityType Name="Visiting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDEmployee" Type="Int32" Nullable="false" />
+          <Property Name="IDMedRecord" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Complaints" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDisease" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StatePraesens" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Additionally" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Visiting_Employee" FromRole="Visiting" ToRole="Employee" />
+          <NavigationProperty Name="MedRecord" Relationship="Self.FK_Visiting_MedRecord" FromRole="Visiting" ToRole="MedRecord" />
+          <NavigationProperty Name="Diagnosis" Relationship="Self.Visiting_Diagnosis" FromRole="Visiting" ToRole="Diagnosis" />
+          <NavigationProperty Name="Medicament" Relationship="Self.Visiting_Medicament" FromRole="Visiting" ToRole="Medicament" />
+        </EntityType>
+        <EntityType Name="Xrays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Photo" Type="Binary" MaxLength="100" FixedLength="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IdMedRecord" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MedRecord" Relationship="Self.FK_MedRecord_Xrays" FromRole="Xrays" ToRole="MedRecord" />
+        </EntityType>
+        <Association Name="FK_Timetable_Day">
+          <End Role="Day" Type="Self.Day" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Day">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IDPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedRecord_Xrays">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="1" />
+          <End Role="Xrays" Type="Self.Xrays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Xrays">
+              <PropertyRef Name="IdMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ticket_MedRecord">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="0..1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="IdMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_MedRecord">
+          <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDMedRecord" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Timetable_Shift">
+          <End Role="Shift" Type="Self.Shift" Multiplicity="1" />
+          <End Role="Timetable" Type="Self.Timetable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shift">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Timetable">
+              <PropertyRef Name="IdShift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Visiting_Diagnosis">
+          <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="*" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+        </Association>
+        <Association Name="Visiting_Medicament">
+          <End Role="Medicament" Type="Self.Medicament" Multiplicity="*" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MedAppDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Day" EntityType="Self.Day" />
+          <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="Medicament" EntityType="Self.Medicament" />
+          <EntitySet Name="MedRecord" EntityType="Self.MedRecord" />
+          <EntitySet Name="Post" EntityType="Self.Post" />
+          <EntitySet Name="Shift" EntityType="Self.Shift" />
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" />
+          <EntitySet Name="Timetable" EntityType="Self.Timetable" />
+          <EntitySet Name="Visiting" EntityType="Self.Visiting" />
+          <EntitySet Name="Xrays" EntityType="Self.Xrays" />
+          <AssociationSet Name="FK_Timetable_Day" Association="Self.FK_Timetable_Day">
+            <End Role="Day" EntitySet="Day" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_Employee" Association="Self.FK_Ticket_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Employee" Association="Self.FK_Timetable_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Employee" Association="Self.FK_Visiting_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedRecord_Xrays" Association="Self.FK_MedRecord_Xrays">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Xrays" EntitySet="Xrays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ticket_MedRecord" Association="Self.FK_Ticket_MedRecord">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_MedRecord" Association="Self.FK_Visiting_MedRecord">
+            <End Role="MedRecord" EntitySet="MedRecord" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timetable_Shift" Association="Self.FK_Timetable_Shift">
+            <End Role="Shift" EntitySet="Shift" />
+            <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="Visiting_Diagnosis" Association="Self.Visiting_Diagnosis">
+            <End Role="Diagnosis" EntitySet="Diagnosis" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+          <AssociationSet Name="Visiting_Medicament" Association="Self.Visiting_Medicament">
+            <End Role="Medicament" EntitySet="Medicament" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MedAppDBModelContainer" CdmEntityContainer="MedAppDBEntities">
+          <EntitySetMapping Name="Day">
+            <EntityTypeMapping TypeName="MedAppDBModel.Day">
+              <MappingFragment StoreEntitySet="Day">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diagnosis">
+            <EntityTypeMapping TypeName="MedAppDBModel.Diagnosis">
+              <MappingFragment StoreEntitySet="Diagnosis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="MedAppDBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Home" ColumnName="Home" />
+                <ScalarProperty Name="Housing" ColumnName="Housing" />
+                <ScalarProperty Name="Houseroom" ColumnName="Houseroom" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IDPost" ColumnName="IDPost" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="Cabinet" ColumnName="Cabinet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicament">
+            <EntityTypeMapping TypeName="MedAppDBModel.Medicament">
+              <MappingFragment StoreEntitySet="Medicament">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedRecord">
+            <EntityTypeMapping TypeName="MedAppDBModel.MedRecord">
+              <MappingFragment StoreEntitySet="MedRecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Home" ColumnName="Home" />
+                <ScalarProperty Name="Housing" ColumnName="Housing" />
+                <ScalarProperty Name="Houseroom" ColumnName="Houseroom" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Post">
+            <EntityTypeMapping TypeName="MedAppDBModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shift">
+            <EntityTypeMapping TypeName="MedAppDBModel.Shift">
+              <MappingFragment StoreEntitySet="Shift">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Begin_work" ColumnName="Begin_work" />
+                <ScalarProperty Name="End_work" ColumnName="End_work" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ticket">
+            <EntityTypeMapping TypeName="MedAppDBModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdMedRecord" ColumnName="IdMedRecord" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="QueueNum" ColumnName="QueueNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timetable">
+            <EntityTypeMapping TypeName="MedAppDBModel.Timetable">
+              <MappingFragment StoreEntitySet="Timetable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdDay" ColumnName="IdDay" />
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="IdShift" ColumnName="IdShift" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visiting">
+            <EntityTypeMapping TypeName="MedAppDBModel.Visiting">
+              <MappingFragment StoreEntitySet="Visiting">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
+                <ScalarProperty Name="IDMedRecord" ColumnName="IDMedRecord" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Complaints" ColumnName="Complaints" />
+                <ScalarProperty Name="StartDisease" ColumnName="StartDisease" />
+                <ScalarProperty Name="StatePraesens" ColumnName="StatePraesens" />
+                <ScalarProperty Name="Additionally" ColumnName="Additionally" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Xrays">
+            <EntityTypeMapping TypeName="MedAppDBModel.Xrays">
+              <MappingFragment StoreEntitySet="Xrays">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IdMedRecord" ColumnName="IdMedRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Visiting_Diagnosis" TypeName="MedAppDBModel.Visiting_Diagnosis" StoreEntitySet="Visiting_Diagnosis">
+            <EndProperty Name="Diagnosis">
+              <ScalarProperty Name="Id" ColumnName="IDDiagnosis" />
+            </EndProperty>
+            <EndProperty Name="Visiting">
+              <ScalarProperty Name="Id" ColumnName="IDVisiting" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Visiting_Medicament" TypeName="MedAppDBModel.Visiting_Medicament" StoreEntitySet="Visiting_Medicament">
+            <EndProperty Name="Medicament">
+              <ScalarProperty Name="Id" ColumnName="IDMedicament" />
+            </EndProperty>
+            <EndProperty Name="Visiting">
+              <ScalarProperty Name="Id" ColumnName="IDVisiting" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

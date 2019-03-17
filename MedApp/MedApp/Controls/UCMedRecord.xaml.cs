@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MedApp
+namespace MedApp.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для UCMedRecord.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UCMedRecord : UserControl
     {
-        public MainWindow()
+        public UCMedRecord()
         {
+            MedRecordViewModel vm = new MedRecordViewModel(true);
+            this.DataContext = vm;
             InitializeComponent();
         }
     }

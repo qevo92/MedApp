@@ -1,0 +1,217 @@
+﻿<Window x:Class="MedApp.Views.MedRecordEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:MedApp.Views"
+        mc:Ignorable="d"
+         Title="Медицинская карта" Height="400" Width="380" MaxHeight="400" MaxWidth="380" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="okbt">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=TBSurname, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBName, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBPatronymic, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBBirthday, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBCountry, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBCity, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBAddress, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBPhone, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBPassport, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBSector, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBOrganization, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBPost, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <Label Content="Фамилия" HorizontalAlignment="Right"></Label>
+                <Label Content="Имя" HorizontalAlignment="Right"></Label>
+                <Label Content="Отчество" HorizontalAlignment="Right"></Label>
+                <Label Content="Дата рождения" HorizontalAlignment="Right"></Label>
+                <Label Content="Страна" HorizontalAlignment="Right"></Label>
+                <Label Content="Город" HorizontalAlignment="Right"></Label>
+                <Label Content="Адрес" HorizontalAlignment="Right"></Label>
+                <Label Content="Телефон" HorizontalAlignment="Right"></Label>
+                <Label Content="Пассапорт" HorizontalAlignment="Right"></Label>
+                <Label Content="Участок" HorizontalAlignment="Right"></Label>
+                <Label Content="Место работы" HorizontalAlignment="Right"></Label>
+                <Label Content="Должность" HorizontalAlignment="Right"></Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1"  >
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBSurname">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Surname" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBName">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Name" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBPatronymic">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Patronymic" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBBirthday">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Birthday" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True" StringFormat="d">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBCountry">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Country" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBCity">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.City" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBAddress">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Address" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBPhone">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Phone" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBPassport">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Passport" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBSector">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Sector" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBOrganization">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Organization" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBPost">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedRecord.Post" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveMedRecord}"  Style="{StaticResource okbt}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Content="Отмена" Margin="3" Grid.Column="1" Command="{Binding CanselEdit}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

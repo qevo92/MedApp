@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="MedApp.Controls.UCMedRecord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedApp.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid x:Name="PatientMainGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <DataGrid  x:Name="grid"
+                       local:DataGridTextSearch.SearchValue="{Binding ElementName=SearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                       CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"  Grid.Row="1" IsReadOnly="True"
+                                  AutoGenerateColumns="False" ItemsSource="{Binding MedRecords , Mode=OneWay}"
+                                  SelectedItem="{Binding SelectedMedRecord,Mode=TwoWay}">
+                    <DataGrid.Resources>
+                        <local:SearchValueConverter x:Key="SearchValueConverter" />
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="local:DataGridTextSearch.IsTextMatch">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource SearchValueConverter}">
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="(local:DataGridTextSearch.SearchValue)" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="local:DataGridTextSearch.IsTextMatch" Value="True">
+                                    <Setter Property="Background" Value="Orange" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Path=Surname,Mode=TwoWay }" Header="Фамилия" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Path=Name,Mode=TwoWay}" Header="Имя" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Path=Patronymic,Mode=TwoWay}" Header="Отчество" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding Path=Birthday, StringFormat=d,Mode=TwoWay}" Header="Дата рождения" Width="*" Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding Path=Country,Mode=TwoWay}" Header="Страна" Width="*" Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding Path=City,Mode=TwoWay}" Header="Город" Width="*" Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding Path=Address,Mode=TwoWay}" Header="Адрес" Width="*" Visibility="Visible"/>
+                        <DataGridTextColumn Binding="{Binding Path=Phone,Mode=TwoWay}" Header="Номер тел" Width="*" Visibility="Hidden"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Height="20" Width="20" Margin="2" Padding="0"  Command="{Binding AddMedRecord}">
+                        <Image Source="/MedApp;component/Resources/add.png"></Image>
+                    </Button>
+                    <Button Height="20" Width="20"  Margin="2" Command="{Binding EditMedRecord}">
+                        <Image Source="/MedApp;component/Resources/edit.png"></Image>
+                    </Button>
+                    <Button Height="20" Width="20" Margin="2" Command="{Binding RemoveMedRecord}">
+                        <Image Source="/MedApp;component/Resources/delete.png"></Image>
+                    </Button>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label>Поиск</Label>
+                    <TextBox Height="20" Name="SearchBox" Margin="0,0,0,-0.2" Width="153"></TextBox>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
