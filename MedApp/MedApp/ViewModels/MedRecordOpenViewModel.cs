@@ -14,6 +14,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using Microsoft.Office.Interop.Excel;
+using MedApp.Behaviors;
+using System;
 
 namespace MedApp.ViewModels
 {
@@ -26,6 +29,8 @@ namespace MedApp.ViewModels
 
         public MedRecord currentMedRecord { get; set; }
         public Employee currentEmployee { get; set; }
+        public Medicament currentMedicament { get; set; }
+        public Diagnosis currentDiagnosis{ get; set; }
 
         public Xrays selectedXrays { get; set; }
         public Visiting selectedVisiting { get; set; }
@@ -46,7 +51,8 @@ namespace MedApp.ViewModels
         public DelegateCommand AddVisiting { get; }
         public DelegateCommand RemoveVisiting { get; }
         public DelegateCommand SaveVisiting { get; }
-        public DelegateCommand CanselVisiting { get; }
+        public DelegateCommand CanselVisiting { get; }        
+        public DelegateCommand ExportVisiting { get;  set; }
 
         bool editoradd;
 
@@ -85,7 +91,7 @@ namespace MedApp.ViewModels
                 EditVisiting.RaiseCanExecuteChanged();
                 RemoveVisiting.RaiseCanExecuteChanged();
             }
-        }
+        }      
 
         public void DownloadXrays(MedRecord medRecord)
         {
@@ -135,6 +141,13 @@ namespace MedApp.ViewModels
                 }
             }
             return null;
+        }
+        private void Export(object gridExcel)
+        {
+            if (gridExcel != null)
+            {
+                DataGridExport.ExportDataGrid(gridExcel);
+            }
         }
 
         public MedRecordOpenViewModel(MedRecord medRecord, Employee employee)
@@ -259,12 +272,17 @@ namespace MedApp.ViewModels
             {
                 if (editoradd == true)
                 {
-                    selectedVisiting.IDMedRecord = currentMedRecord.Id;
-                    
                     selectedVisiting.IDEmployee = currentEmployee.Id;
-                    
+                    selectedVisiting.IDMedRecord = currentMedRecord.Id;
 
-                    context.Visiting.Add(selectedVisiting);
+                    currentMedRecord = context.MedRecord.Find(currentMedRecord.Id);
+                    currentEmployee = context.Employee.Find(currentEmployee.Id);
+                    currentMedicament = context.Medicament.Find(selectedVisiting.IDMedicament);
+                    currentDiagnosis = context.Diagnosis.Find(selectedVisiting.IDDiagnosis);
+                    //Diagnosings = DiagnosisViewModel.DiagnosisTake();
+                    //Medicaments = MedicamentViewModel.MedicamentsTake();
+
+                    context.Visiting.Add(selectedVisiting);                 
 
                     context.SaveChanges();
 
@@ -272,6 +290,11 @@ namespace MedApp.ViewModels
                 }
                 else
                 {
+                    currentMedRecord = context.MedRecord.Find(currentMedRecord.Id);
+                    currentEmployee = context.Employee.Find(currentEmployee.Id);
+                    currentMedicament = context.Medicament.Find(selectedVisiting.IDMedicament);
+                    currentDiagnosis = context.Diagnosis.Find(selectedVisiting.IDDiagnosis);
+
                     context.Entry(selectedVisiting).State = EntityState.Modified;
                     context.SaveChanges();
                 }
@@ -303,7 +326,54 @@ namespace MedApp.ViewModels
                 {
                     return;
                 }
-            }); 
+            });        
+
+            ExportVisiting = new DelegateCommand(() =>
+            {
+                try
+                {
+                    Microsoft.Office.Interop.Excel.Application exApp = new Microsoft.Office.Interop.Excel.Application();              
+                    
+                    Workbook workbook = exApp.Workbooks.Add(Type.Missing);
+                    
+                    Worksheet workSheet = (Worksheet)exApp.ActiveSheet;
+
+                    workSheet.Cells[1, 1] = "ФИО пациента";
+                    workSheet.Cells[1, 2] = "ФИО врача";
+                    workSheet.Cells[1, 3] = "Дата";
+                    workSheet.Cells[1, 4] = "Жалобы";
+                    workSheet.Cells[1, 5] = "Начало болезни";
+                    workSheet.Cells[1, 6] = "Текущее состояние";
+                    workSheet.Cells[1, 7] = "Дополнительно";
+                    workSheet.Cells[1, 8] = "Медикамент";
+                    workSheet.Cells[1, 9] = "Диагноз";
+
+                    int rowExcel = 2;
+
+                    foreach (var item in Visitings)
+                    {
+                        workSheet.Cells[rowExcel, "A"] = item.MedRecord.Surname + item.MedRecord.Name + item.MedRecord.Patronymic;
+                        workSheet.Cells[rowExcel, "B"] = item.Employee.Surname + item.Employee.Name + item.Employee.Patronymic;
+                        workSheet.Cells[rowExcel, "C"] = item.Date;
+                        workSheet.Cells[rowExcel, "D"] = item.Complaints;
+                        workSheet.Cells[rowExcel, "E"] = item.StartDisease;
+                        workSheet.Cells[rowExcel, "F"] = item.StatePraesens;
+                        workSheet.Cells[rowExcel, "G"] = item.Additionally;
+                        workSheet.Cells[rowExcel, "H"] = item.Medicament.Name;
+                        workSheet.Cells[rowExcel, "I"] = item.Diagnosis.Name;
+
+                        ++rowExcel;
+                    }
+
+                    //workbook.Close();
+                    exApp.Quit();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(exApp);                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка записи в Excel");
+                }
+            });
             #endregion
         }
     }

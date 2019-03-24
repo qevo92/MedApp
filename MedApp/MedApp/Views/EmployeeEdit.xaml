@@ -7,7 +7,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:MedApp.Views"
         mc:Ignorable="d"
-        Title="Сотрудник" Height="600" Width="380" MaxHeight="600" MaxWidth="380" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="pack://application:,,,/Resources/editfile256.ico">
+        Title="Сотрудник" Height="600" Width="380" MaxHeight="600" MaxWidth="380" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="okbt">
             <Style.Triggers>
@@ -63,7 +63,6 @@
                     <Setter Property="Control.IsEnabled" Value="False"></Setter>
                 </DataTrigger>
             </Style.Triggers>
-            
         </Style>
     </Window.Resources>
     <Grid Background="White">
@@ -241,7 +240,7 @@
                     </TextBox>
                     <ComboBox ItemsSource="{Binding Posts}" x:Name="CBPost"
                           DisplayMemberPath="Name" Margin="3"                          
-                          SelectedValue="{Binding selectedEmployee.IDPost, Mode=TwoWay}"
+                          SelectedValue="{Binding selectedEmployee.IDPost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="Id"                          
                 ></ComboBox>
                 </StackPanel>
@@ -251,7 +250,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveMedRecord}"  Style="{StaticResource okbt}" >
+            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveEmployee}"  Style="{StaticResource okbt}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <ei:CallMethodAction MethodName="Close"

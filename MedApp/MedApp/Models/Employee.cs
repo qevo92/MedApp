@@ -13,7 +13,7 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class Employee : BindableBase
+    public partial class Employee : BindableBase ,IEditableObject, IDataErrorInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
@@ -456,10 +456,7 @@ namespace MedApp.Models
             this.Cabinet = _tempValues.Cabinet;
         }
 
-        public string Error
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public string Error => throw new NotImplementedException();
 
         public string this[string columnName]
         {
@@ -538,7 +535,7 @@ namespace MedApp.Models
                 }
                 if (columnName == "IDPost")
                 {
-                    if (IDPost == 0)
+                    if (IDPost <= 0)
                         result = "Данная строка не может быть пустой";
                 }
                 if (columnName == "Cabinet")

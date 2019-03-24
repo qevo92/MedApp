@@ -78,7 +78,7 @@
             <Label FontSize="10" Content="{Binding Сurrentemployee.Surname}" ></Label>
             <Label FontSize="10" Content="{Binding Сurrentemployee.Name}" ></Label>
             <Label FontSize="10" Content="{Binding Сurrentemployee.Patronymic}" ></Label>
-            <Label FontSize="10">Должность:</Label>
+            <Label FontSize="10">Роль:</Label>
             <Label FontSize="10" Content="{Binding Сurrentemployee.Post.Name}"></Label>
         </StackPanel>
     </Grid>

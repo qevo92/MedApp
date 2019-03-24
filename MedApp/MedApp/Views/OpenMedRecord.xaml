@@ -113,32 +113,52 @@
                             <Button Height="20" Width="20" Margin="2" Command="{Binding RemoveVisiting}">
                                 <Image Source="/MedApp;component/Resources/delete.png"></Image>
                             </Button>
+                            <Button Height="20" Width="20" Margin="2" Command="{Binding ExportVisiting}">
+                                <Image Source="/MedApp;component/Resources/excel.png"></Image>
+                            </Button>
                         </StackPanel>
-                        <DataGrid ItemsSource="{Binding VisitingsCollectionView , Mode=OneWay}"
+                        <DataGrid ItemsSource="{Binding VisitingsCollectionView , Mode=OneWay}" x:Name="gridExport"
                                   SelectedItem="{Binding SelectedVisiting,Mode=TwoWay}"
                                   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
-                                  AutoGenerateColumns="False" Grid.Row="1">
+                                  AutoGenerateColumns="False" Grid.Row="1" HeadersVisibility="All">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Path=Date,Mode=OneWay, StringFormat=d}" Header="Дата" Width="*" />
                                 <DataGridTemplateColumn Header="Врач" Width="*">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock>
-                                                    <TextBlock.Text>
-                                                        <MultiBinding StringFormat="{}{0} {1} {2}">
-                                                            <Binding Path="Employee.Surname"></Binding>
-                                                            <Binding Path="Employee.Name"></Binding>
-                                                            <Binding Path="Employee.Patronymic"></Binding>
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
-                                            </StackPanel>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                        <Binding Path="Employee.Surname"></Binding>
+                                                        <Binding Path="Employee.Name"></Binding>
+                                                        <Binding Path="Employee.Patronymic"></Binding>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Binding="{Binding Path=Complaints,Mode=OneWay }" Header="Жалобы" Width="*" />
-                                
+                                <DataGridTextColumn Binding="{Binding Path=Complaints,Mode=OneWay }" Header="Жалобы" Width="*"/>
+                                <DataGridTextColumn Binding="{Binding Path=StartDisease,Mode=OneWay }" Header="Начало болезни" Width="*" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Path=StatePraesens,Mode=OneWay }" Header="Текущее состояние" Width="*" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Path=Additionally,Mode=OneWay }" Header="Дополнительно" Width="*" Visibility="Hidden"/>
+                                <DataGridTemplateColumn Header="Пациент" Width="*" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                        <Binding Path="MedRecord.Surname"></Binding>
+                                                        <Binding Path="MedRecord.Name"></Binding>
+                                                        <Binding Path="MedRecord.Patronymic"></Binding>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Binding="{Binding Path=Medicament.Name,Mode=OneWay }" Header="Медикамент" Width="*" Visibility="Hidden"/>
+                                <DataGridTextColumn Binding="{Binding Path=Diagnosis.Name,Mode=OneWay }" Header="Диагноз" Width="*" />
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

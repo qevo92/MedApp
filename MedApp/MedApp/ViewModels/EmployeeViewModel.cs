@@ -20,6 +20,8 @@ namespace MedApp.ViewModels
         public ObservableCollection<Employee> Employees { get; set; }
         public ObservableCollection<Post> Posts { get; set; }
 
+        public Post currentPost { get; set; }
+
         public DelegateCommand EditEmployee { get; }
         public DelegateCommand AddEmployee { get; }
         public DelegateCommand RemoveEmployee { get; }
@@ -158,6 +160,8 @@ namespace MedApp.ViewModels
             {
                 if (editoradd == true)
                 {
+                    currentPost = context.Post.Find(selectedEmployee.Post.Id);
+
                     context.Employee.Add(selectedEmployee);
 
                     context.SaveChanges();
@@ -166,6 +170,7 @@ namespace MedApp.ViewModels
                 }
                 else
                 {
+                    currentPost = context.Post.Find(selectedEmployee.Post.Id);
                     context.Entry(selectedEmployee).State = EntityState.Modified;
                     context.SaveChanges();
                 }

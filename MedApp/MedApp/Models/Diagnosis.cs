@@ -115,12 +115,12 @@ namespace MedApp.Models
             get
             {
                 string result = null;
-                if (columnName == "Photo")
+                if (columnName == "Key")
                 {
                     if (Key == null)
                         result = "Данная строка не может быть пустой";
                 }
-                if (columnName == "Date")
+                if (columnName == "Name")
                 {
                     if (Name == null)
                         result = "Данная строка не может быть пустой";
