@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:MedApp.Controls"
         xmlns:local="clr-namespace:MedApp.Views"
         mc:Ignorable="d"
-        Title="MedApp" Height="450" Width="800">
+        Title="MedApp" Height="450" Width="800" Icon="pack://application:,,,/Resources/main.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="114*"/>
@@ -14,9 +14,9 @@
             <ColumnDefinition Width="1377*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.05*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.033*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Name="Menu" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
@@ -34,11 +34,11 @@
         <TabControl Grid.Row="1" TabStripPlacement="Bottom" Grid.ColumnSpan="3" Margin="0,0,-0.4,0">
             <TabItem x:Name="employees">
                 <TabItem.Header>
-                    <TextBlock>Пользователи</TextBlock>
+                    <TextBlock>Сотрудники</TextBlock>
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
-                        
+                        <controls:UCEmployee x:Name="UCEmployee"></controls:UCEmployee>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -48,7 +48,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
-                        <controls:UCMedRecord></controls:UCMedRecord>
+                        <controls:UCMedRecord x:Name="UCMedRecord"></controls:UCMedRecord>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -58,7 +58,7 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
-
+                        <controls:UCDiagnosis x:Name="UCDiagnosis"></controls:UCDiagnosis>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -68,21 +68,11 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <Grid>
-
+                        <controls:UCMedicament  x:Name="UCMedicament"></controls:UCMedicament>
                     </Grid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem x:Name="visitings">
-                <TabItem.Header>
-                    <TextBlock>Посещения</TextBlock>
-                </TabItem.Header>
-                <TabItem.Content>
-                    <Grid>
-
-                    </Grid>
-                </TabItem.Content>
-            </TabItem>
-        </TabControl>
+            </TabControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="3" Margin="0,0,-0.4,0.2">
             <Label FontSize="10">Пользователь :</Label>
             <Label FontSize="10" Content="{Binding Сurrentemployee.Surname}" ></Label>

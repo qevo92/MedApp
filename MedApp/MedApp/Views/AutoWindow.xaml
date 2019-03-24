@@ -1,0 +1,67 @@
+﻿<Window x:Class="MedApp.Views.AutoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:MedApp.Views"
+        mc:Ignorable="d"
+       Title="Аутентификация" Height="220" Width="350" MaxHeight="220" MaxWidth="350" WindowStartupLocation="CenterScreen" 
+        Icon="pack://application:,,,/Resources/key.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <TextBox  Margin="3" Height="40" Width="240" BorderThickness="0,0,0,2" x:Name="TBKey" FontSize="18">
+                    <TextBox.Text>
+                        <Binding Path="Login" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="40" Width="240" BorderThickness="0,0,0,2" x:Name="TBName" FontSize="18">
+                    <TextBox.Text>
+                        <Binding Path="Password" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                <Label Height="50" FontSize="20" Content="Логин" HorizontalAlignment="Right"/>
+                <Label Height="50" FontSize="20" Content="Пароль" HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="5" Height="30" Width="100" Command="{Binding LoginPasswordCheck}">Вход</Button>
+            <Button Grid.Column="1" Margin="5" Height="30" Width="100" Content="Выход">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

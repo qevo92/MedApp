@@ -1,18 +1,14 @@
-﻿using AutoMapper;
-using MedApp.Models;
+﻿using MedApp.Models;
 using MedApp.Views;
 using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace MedApp.ViewModels
 {
@@ -21,48 +17,71 @@ namespace MedApp.ViewModels
         MedAppDBEntities context;
 
         public MedRecord selectedMedRecord { get; set; }
-        public BindingList<MedRecord> MedRecords { get; set; }
+        public ObservableCollection<MedRecord> MedRecords { get; set; }
+
+        public Employee currentemployee = new Employee();
 
         public DelegateCommand EditMedRecord { get; }
         public DelegateCommand AddMedRecord { get; }
         public DelegateCommand RemoveMedRecord { get; }
         public DelegateCommand SaveMedRecord { get; }
         public DelegateCommand CanselEdit { get; }
+        public DelegateCommand MedRecordOpen { get; }
 
         bool editoradd;
-        MedRecord backap;
 
+        public string _searchKey { get; set; }
+
+        public ICollectionView FilterCollectionView
+        {
+            get { return CollectionViewSource.GetDefaultView(MedRecords); }
+        }
+
+        public Employee Сurrentemployee
+        {
+            get { return currentemployee; }
+            set
+            {
+                currentemployee = value;
+                RaisePropertyChanged("Сurrentemployee");
+            }
+        }
+
+        private string filterString;
+        public string FilterString
+        {
+            get { return filterString; }
+            set
+            {
+                if (Equals(value, filterString)) return;
+                filterString = value;
+                FilterCollectionView.Refresh(); // tirggers filtering logic
+                RaisePropertyChanged("FilterString");
+            }
+        }
 
         public MedRecord SelectedMedRecord
         {
             get { return selectedMedRecord; }
             set
             {
+                selectedMedRecord?.EndEdit();
+
                 selectedMedRecord = value;
                 RaisePropertyChanged("SelectedMedRecord");
                 EditMedRecord.RaiseCanExecuteChanged();
-                RemoveMedRecord.RaiseCanExecuteChanged();
-                
+                RemoveMedRecord.RaiseCanExecuteChanged();              
             }
         }
-
-        public int MyItem_PropertyChanged { get; }
-
-        public BindingList<MedRecord> MedrecordsTake()
+ 
+        public ObservableCollection<MedRecord> MedrecordsTake()
         {
-            MedRecords = new BindingList<MedRecord>();
-            context = new MedAppDBEntities();       
-            List<MedRecord> temp = context.MedRecord.ToList();
-            foreach (var item in temp)
-            {
-                MedRecords.Add(item);
-            }
             return MedRecords;
         }
 
         public void DownloadMedRecords()
         {
-            MedRecords = new BindingList<MedRecord>();
+            MedRecords = new ObservableCollection<MedRecord>();
             context = new MedAppDBEntities();
             List<MedRecord> temp = context.MedRecord.ToList();
             foreach (var item in temp)
@@ -71,18 +90,52 @@ namespace MedApp.ViewModels
             }          
         }
 
-        public MedRecordViewModel(bool a)
-        {
-            if (a)
-            { DownloadMedRecords(); }
+        public MedRecordViewModel(Employee employee)
+        {           
+            DownloadMedRecords();
+            currentemployee = employee;
 
-            Mapper.Initialize(cfg => cfg.CreateMap<MedRecord, MedRecord>());
+            FilterCollectionView.Filter = i =>
+            {
+                if (_searchKey == "" || _searchKey == null) return true;
+                if (string.IsNullOrEmpty(FilterString)) return true;
+                if (_searchKey == "Фамилия")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.Surname.ToString().StartsWith(FilterString);
+                }
+                if (_searchKey == "Имя")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.Name.ToString().StartsWith(FilterString);
+                }
+                if (_searchKey == "Отчество")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.Patronymic.ToString().StartsWith(FilterString);
+                }
+                if (_searchKey == "Город")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.City.ToString().StartsWith(FilterString);
+                }
+                if (_searchKey == "Улица")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.Street.ToString().StartsWith(FilterString);
+                }
+                if (_searchKey == "Дом")
+                {
+                    MedRecord m = i as MedRecord;
+                    return m.Home.ToString().StartsWith(FilterString);
+                }
+                else return true;
+            };
 
             EditMedRecord = new DelegateCommand(() =>
-            {
-                
-                backap = Mapper.Map<MedRecord, MedRecord>(SelectedMedRecord);
+            {          
                 editoradd = false;
+                selectedMedRecord?.BeginEdit();
 
                 var w = new MedRecordEdit();
                 w.DataContext = this;
@@ -96,12 +149,11 @@ namespace MedApp.ViewModels
                editoradd = true;
 
                MedRecord NewMedRecord = new MedRecord();
-               NewMedRecord.Name = "Новый пациент";
                SelectedMedRecord = NewMedRecord;
 
                var w = new MedRecordEdit();
                w.DataContext = this;
-               w.Show();
+               w.ShowDialog();
             });                          
 
             SaveMedRecord = new DelegateCommand(() =>
@@ -126,8 +178,8 @@ namespace MedApp.ViewModels
                 if (MessageBox.Show("Удалить?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     context.Entry(selectedMedRecord).State = EntityState.Deleted;
-                    context.SaveChanges();
                     MedRecords.Remove(selectedMedRecord);
+                    context.SaveChanges();
                 }
                 else
                 {
@@ -139,8 +191,8 @@ namespace MedApp.ViewModels
             {
                 if (editoradd == false)
                 {
-                    MedRecords.
-                    SelectedMedRecord = Mapper.Map<MedRecord, MedRecord>(backap);  
+                    if (selectedMedRecord == null) return;
+                    SelectedMedRecord.CancelEdit();
                 }
                 else
                 {
@@ -148,26 +200,13 @@ namespace MedApp.ViewModels
                 }
             });
 
-            //void MyCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-            //{
-            //    if (e.NewItems != null)
-            //    {
-            //        foreach (object item in e.NewItems)
-            //        {
-            //            if (item is MyItem)
-            //                ((MyItem)item).PropertyChanged += MyItem_PropertyChanged;
-            //        }
-            //    }
-
-            //    if (e.OldItems != null)
-            //    {
-            //        foreach (object item in e.OldItems)
-            //        {
-            //            if (item is MyItem)
-            //                ((MyItem)item).PropertyChanged -= MyItem_PropertyChanged;
-            //        }
-            //    }
-            //}
+            MedRecordOpen = new DelegateCommand(() =>
+            {
+                MedRecordOpenViewModel viewmodel = new MedRecordOpenViewModel(SelectedMedRecord, currentemployee);
+                var w = new OpenMedRecord();
+                w.DataContext = viewmodel;
+                w.ShowDialog();
+            }, () => currentemployee.Post.Name == "Врач" || currentemployee.Post.Name == "Администратор");
         }
     }
 }

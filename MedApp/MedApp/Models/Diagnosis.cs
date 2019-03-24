@@ -13,7 +13,7 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class Diagnosis : BindableBase
+    public partial class Diagnosis : BindableBase, IEditableObject, IDataErrorInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Diagnosis()
@@ -107,6 +107,58 @@ namespace MedApp.Models
              }
           }
         }
-     
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Photo")
+                {
+                    if (Key == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Date")
+                {
+                    if (Name == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Description")
+                {
+                    if (Description == "" || Description == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
+        }
+
+        private Diagnosis _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new Diagnosis
+            {
+                Id = this.Id,
+                Key = this.Key,
+                Name = this.Name,
+                Description = this.Description,
+            };
+        }
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.Key = _tempValues.Key;
+            this.Name = _tempValues.Name;
+            this.Description = _tempValues.Description;
+        }
     }
 }

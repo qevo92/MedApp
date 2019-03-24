@@ -6,11 +6,10 @@ using System.Windows.Interop;
 namespace MedApp.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MedRecordEdit.xaml
+    /// Логика взаимодействия для DiagnosisEdit.xaml
     /// </summary>
-    public partial class MedRecordEdit : Window
+    public partial class DiagnosisEdit : Window
     {
-
         private const int GWL_STYLE = -16;
         private const int WS_SYSMENU = 0x80000;
         [DllImport("user32.dll", SetLastError = true)]
@@ -23,13 +22,9 @@ namespace MedApp.Views
             var hwnd = new WindowInteropHelper(this).Handle;
             SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SYSMENU);
         }
-
-
-        public MedRecordEdit()
+        public DiagnosisEdit()
         {
             InitializeComponent();
         }
-
-        
     }
 }

@@ -1,0 +1,154 @@
+﻿<Window x:Class="MedApp.Views.VisitingEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:MedApp.Views"
+        mc:Ignorable="d"
+        Title="Посещение" Height="600" Width="500" MaxHeight="500" MaxWidth="500" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="okbt">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=TBData, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBCopmlains, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBStartDisease, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBStatePraesens, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBAdditionally, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=CBMedicament, Path=Text}" Value="">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=CBDiagnos, Path=Text}" Value="">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <!--<Label Content="Врач" HorizontalAlignment="Right" Height="29"></Label>
+                <Label Content="Пациент" HorizontalAlignment="Right"  Height="29" ></Label>-->
+                <Label Content="Дата" HorizontalAlignment="Right" ></Label>
+                <Label Content="Жалобы" HorizontalAlignment="Right" Height="110"></Label>
+                <Label Content="Начало болезни" HorizontalAlignment="Right"  Height="24"></Label>
+                <Label Content="Текущее состояние" HorizontalAlignment="Right" Height="105"></Label>
+                <Label Content="Медикамент" HorizontalAlignment="Right"></Label>
+                <Label Content="Диагноз" HorizontalAlignment="Right"></Label>
+                <Label Content="Дополнительно" HorizontalAlignment="Right"></Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                    <!--<TextBox  Height="22" Margin="3" IsEnabled="False">
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="{}{0}{1}{2}">
+                                <Binding Path="currentEmployee.Surname" Mode="OneWayToSource" />
+                                <Binding Path="currentEmployee.Name" Mode="OneWay" />
+                                <Binding Path="currentEmployee.Patromymic" Mode="OneWay" />
+                            </MultiBinding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox  Height="22" Margin="3" IsEnabled="False">
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="{}{0}{1}{2}">
+                                <Binding Path="currentMedRecord.Surname" Mode="OneWayToSource" />
+                                <Binding Path="currentMedRecord.Name" Mode="OneWay" />
+                                <Binding Path="currentMedRecord.Patromymic" Mode="OneWay" />
+                            </MultiBinding>
+                        </TextBox.Text>
+                    </TextBox>-->
+                    <DatePicker SelectedDate="{Binding Path=selectedVisiting.Date}" Margin="3"  VerticalAlignment="Top"
+                        Height="22" BorderThickness="0,0,0,1" x:Name="TBData">
+                </DatePicker>
+                <TextBox  Margin="3" Height="100" BorderThickness="2,2,2,2" x:Name="TBCopmlains">
+                    <TextBox.Text>
+                        <Binding Path="selectedVisiting.Complaints" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                    <DatePicker SelectedDate="{Binding Path=selectedVisiting.StartDisease}" Margin="3"  VerticalAlignment="Top"
+                        Height="22" BorderThickness="0,0,0,1" x:Name="TBStartDisease">
+                    </DatePicker>
+                    
+                <TextBox  Margin="3" Height="100" BorderThickness="2,2,2,2" x:Name="TBStatePraesens">
+                    <TextBox.Text>
+                        <Binding Path="selectedVisiting.StatePraesens" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True" StringFormat="d">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox Margin="3" ItemsSource="{Binding Medicaments}" x:Name="CBMedicament" Height="20"
+                          DisplayMemberPath="Name"                          
+                          SelectedValue="{Binding selectedVisiting.IDMedicament, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="Id"                          
+                ></ComboBox>
+                    <ComboBox Margin="3" ItemsSource="{Binding Diagnosings}" x:Name="CBDiagnos" Height="20"
+                          DisplayMemberPath="Name"                         
+                          SelectedValue="{Binding selectedVisiting.IDDiagnosis, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="Id"                          
+                ></ComboBox>
+                <TextBox  Margin="3" Height="200" BorderThickness="2,2,2,2" x:Name="TBAdditionally" TextWrapping="Wrap">
+                    <TextBox.Text>
+                        <Binding Path="selectedVisiting.Additionally" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveVisiting}"  Style="{StaticResource okbt}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Content="Отмена" Margin="3" Grid.Column="1" Command="{Binding CanselVisiting}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

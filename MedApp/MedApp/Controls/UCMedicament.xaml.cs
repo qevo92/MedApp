@@ -1,20 +1,16 @@
 ﻿using MedApp.ViewModels;
 using System.Windows.Controls;
 
-
 namespace MedApp.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для UCMedRecord.xaml
+    /// Логика взаимодействия для UCMedicament.xaml
     /// </summary>
-    public partial class UCMedRecord : UserControl
+    public partial class UCMedicament : UserControl
     {
-        public UCMedRecord()
+        public UCMedicament()
         {
-           
             InitializeComponent();
         }
-
-          
     }
 }

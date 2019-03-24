@@ -13,7 +13,7 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class Xrays : BindableBase
+    public partial class Xrays : BindableBase,IEditableObject, IDataErrorInfo
     {
         private int  _Id;
         public int Id 
@@ -117,6 +117,60 @@ namespace MedApp.Models
              }
           }
         }
-     
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Photo")
+                {
+                    if (Photo == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Date")
+                {
+                    if (Date == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Description")
+                {
+                    if (Description == "" || Description == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
+        }
+
+        private Xrays _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new Xrays
+            {
+                Id = this.Id,
+                Photo = this.Photo,
+                Date = this.Date,
+                Description = this.Description,
+                IdMedRecord = this.IdMedRecord
+            };
+        }
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.Photo = _tempValues.Photo;
+            this.Date = _tempValues.Date;
+            this.Description = _tempValues.Description;
+            this.IdMedRecord = _tempValues.IdMedRecord;
+        }
+
     }
 }

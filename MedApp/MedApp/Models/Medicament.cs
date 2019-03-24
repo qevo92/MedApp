@@ -13,7 +13,7 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class Medicament : BindableBase
+    public partial class Medicament : BindableBase, IEditableObject, IDataErrorInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Medicament()
@@ -90,6 +90,51 @@ namespace MedApp.Models
              }
           }
         }
-     
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Name")
+                {
+                    if (Name == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Description")
+                {
+                    if (Description == "" || Description == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
+        }
+
+        private Medicament _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new Medicament
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Description = this.Description,
+            };
+        }
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.Name = _tempValues.Name;
+            this.Description = _tempValues.Description;
+        }
+
     }
 }

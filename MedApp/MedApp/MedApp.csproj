@@ -52,9 +52,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net45\CommonServiceLocator.dll</HintPath>
     </Reference>
@@ -110,8 +107,20 @@
     </Compile>
     <Compile Include="Controls\DataGridTextSearch.cs" />
     <Compile Include="Controls\SearchValueConverter.cs" />
+    <Compile Include="Controls\UCDiagnosis.xaml.cs">
+      <DependentUpon>UCDiagnosis.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UCEmployee.xaml.cs">
+      <DependentUpon>UCEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UCMedicament.xaml.cs">
+      <DependentUpon>UCMedicament.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UCMedRecord.xaml.cs">
       <DependentUpon>UCMedRecord.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UCTimetable.xaml.cs">
+      <DependentUpon>UCTimetable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Day.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
@@ -129,18 +138,18 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelDB.Context.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>ModelDB.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ModelDB.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\ModelDB.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>ModelDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Post.cs">
@@ -161,14 +170,43 @@
     <Compile Include="Models\Xrays.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AutoViewModel.cs" />
+    <Compile Include="ViewModels\DiagnosisViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MedicamentViewModel.cs" />
+    <Compile Include="ViewModels\MedRecordOpenViewModel.cs" />
     <Compile Include="ViewModels\MedRecordViewModel.cs" />
-    <Compile Include="ViewModels\TrulyObservableCollection.cs" />
+    <Compile Include="ViewModels\TimetableVIewModel.cs" />
+    <Compile Include="Views\AutoWindow.xaml.cs">
+      <DependentUpon>AutoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiagnosisEdit.xaml.cs">
+      <DependentUpon>DiagnosisEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeeEdit.xaml.cs">
+      <DependentUpon>EmployeeEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MedicamentEdit.xaml.cs">
+      <DependentUpon>MedicamentEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MedRecordEdit.xaml.cs">
       <DependentUpon>MedRecordEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenMedRecord.xaml.cs">
+      <DependentUpon>OpenMedRecord.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimetableEdit.xaml.cs">
+      <DependentUpon>TimetableEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VisitingEdit.xaml.cs">
+      <DependentUpon>VisitingEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XraysEdit.xaml.cs">
+      <DependentUpon>XraysEdit.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +224,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EntityDeploy Include="Models\ModelDB.edmx">
@@ -221,14 +259,27 @@
     </Content>
     <Content Include="Models\ModelDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
       <LastGenOutput>ModelDB.cs</LastGenOutput>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
     </Content>
-    <None Include="Resources\photo.png" />
-    <None Include="Resources\edit.png" />
-    <None Include="Resources\delete.png" />
-    <None Include="Resources\check.png" />
-    <None Include="Resources\add.png" />
+    <Resource Include="Resources\main.ico" />
+    <Resource Include="Resources\key.ico" />
+    <Resource Include="Resources\editfile256.ico" />
+    <Resource Include="Resources\photo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\check.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -241,7 +292,43 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\UCDiagnosis.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UCEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UCMedicament.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\UCMedRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UCTimetable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AutoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DiagnosisEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeeEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,7 +336,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MedicamentEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MedRecordEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OpenMedRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimetableEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VisitingEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XraysEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,384 +22,532 @@ namespace MedApp.Models
             this.Timetable = new HashSet<Timetable>();
             this.Visiting = new HashSet<Visiting>();
         }
-    
-        private int  _Id;
-        public int Id 
-        { 
-           get
-           {
-              return _Id;
-           } 
-           set
-           {
-              if(_Id != value)
-              {
-                _Id = value;
-                RaisePropertyChanged("Id");
-              }
-           }
+
+        private int _Id;
+        public int Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    _Id = value;
+                    RaisePropertyChanged("Id");
+                }
+            }
         }
-     
-        private string  _Surname;
-        public string Surname 
-        { 
-           get
-           {
-              return _Surname;
-           } 
-           set
-           {
-              if(_Surname != value)
-              {
-                _Surname = value;
-                RaisePropertyChanged("Surname");
-              }
-           }
+
+        private string _Surname;
+        public string Surname
+        {
+            get
+            {
+                return _Surname;
+            }
+            set
+            {
+                if (_Surname != value)
+                {
+                    _Surname = value;
+                    RaisePropertyChanged("Surname");
+                }
+            }
         }
-     
-        private string  _Name;
-        public string Name 
-        { 
-           get
-           {
-              return _Name;
-           } 
-           set
-           {
-              if(_Name != value)
-              {
-                _Name = value;
-                RaisePropertyChanged("Name");
-              }
-           }
+
+        private string _Name;
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                if (_Name != value)
+                {
+                    _Name = value;
+                    RaisePropertyChanged("Name");
+                }
+            }
         }
-     
-        private string  _Patronymic;
-        public string Patronymic 
-        { 
-           get
-           {
-              return _Patronymic;
-           } 
-           set
-           {
-              if(_Patronymic != value)
-              {
-                _Patronymic = value;
-                RaisePropertyChanged("Patronymic");
-              }
-           }
+
+        private string _Patronymic;
+        public string Patronymic
+        {
+            get
+            {
+                return _Patronymic;
+            }
+            set
+            {
+                if (_Patronymic != value)
+                {
+                    _Patronymic = value;
+                    RaisePropertyChanged("Patronymic");
+                }
+            }
         }
-     
-        private System.DateTime  _Birthday;
-        public System.DateTime Birthday 
-        { 
-           get
-           {
-              return _Birthday;
-           } 
-           set
-           {
-              if(_Birthday != value)
-              {
-                _Birthday = value;
-                RaisePropertyChanged("Birthday");
-              }
-           }
+
+        private System.DateTime _Birthday;
+        public System.DateTime Birthday
+        {
+            get
+            {
+                return _Birthday;
+            }
+            set
+            {
+                if (_Birthday != value)
+                {
+                    _Birthday = value;
+                    RaisePropertyChanged("Birthday");
+                }
+            }
         }
-     
-        private string  _Country;
-        public string Country 
-        { 
-           get
-           {
-              return _Country;
-           } 
-           set
-           {
-              if(_Country != value)
-              {
-                _Country = value;
-                RaisePropertyChanged("Country");
-              }
-           }
+
+        private string _Country;
+        public string Country
+        {
+            get
+            {
+                return _Country;
+            }
+            set
+            {
+                if (_Country != value)
+                {
+                    _Country = value;
+                    RaisePropertyChanged("Country");
+                }
+            }
         }
-     
-        private string  _City;
-        public string City 
-        { 
-           get
-           {
-              return _City;
-           } 
-           set
-           {
-              if(_City != value)
-              {
-                _City = value;
-                RaisePropertyChanged("City");
-              }
-           }
+
+        private string _City;
+        public string City
+        {
+            get
+            {
+                return _City;
+            }
+            set
+            {
+                if (_City != value)
+                {
+                    _City = value;
+                    RaisePropertyChanged("City");
+                }
+            }
         }
-     
-        private string  _Street;
-        public string Street 
-        { 
-           get
-           {
-              return _Street;
-           } 
-           set
-           {
-              if(_Street != value)
-              {
-                _Street = value;
-                RaisePropertyChanged("Street");
-              }
-           }
+
+        private string _Street;
+        public string Street
+        {
+            get
+            {
+                return _Street;
+            }
+            set
+            {
+                if (_Street != value)
+                {
+                    _Street = value;
+                    RaisePropertyChanged("Street");
+                }
+            }
         }
-     
-        private int  _Home;
-        public int Home 
-        { 
-           get
-           {
-              return _Home;
-           } 
-           set
-           {
-              if(_Home != value)
-              {
-                _Home = value;
-                RaisePropertyChanged("Home");
-              }
-           }
+
+        private int _Home;
+        public int Home
+        {
+            get
+            {
+                return _Home;
+            }
+            set
+            {
+                if (_Home != value)
+                {
+                    _Home = value;
+                    RaisePropertyChanged("Home");
+                }
+            }
         }
-     
-        private Nullable<int>  _Housing;
-        public Nullable<int> Housing 
-        { 
-           get
-           {
-              return _Housing;
-           } 
-           set
-           {
-              if(_Housing != value)
-              {
-                _Housing = value;
-                RaisePropertyChanged("Housing");
-              }
-           }
+
+        private Nullable<int> _Housing;
+        public Nullable<int> Housing
+        {
+            get
+            {
+                return _Housing;
+            }
+            set
+            {
+                if (_Housing != value)
+                {
+                    _Housing = value;
+                    RaisePropertyChanged("Housing");
+                }
+            }
         }
-     
-        private int  _Houseroom;
-        public int Houseroom 
-        { 
-           get
-           {
-              return _Houseroom;
-           } 
-           set
-           {
-              if(_Houseroom != value)
-              {
-                _Houseroom = value;
-                RaisePropertyChanged("Houseroom");
-              }
-           }
+
+        private int _Houseroom;
+        public int Houseroom
+        {
+            get
+            {
+                return _Houseroom;
+            }
+            set
+            {
+                if (_Houseroom != value)
+                {
+                    _Houseroom = value;
+                    RaisePropertyChanged("Houseroom");
+                }
+            }
         }
-     
-        private string  _Phone;
-        public string Phone 
-        { 
-           get
-           {
-              return _Phone;
-           } 
-           set
-           {
-              if(_Phone != value)
-              {
-                _Phone = value;
-                RaisePropertyChanged("Phone");
-              }
-           }
+
+        private string _Phone;
+        public string Phone
+        {
+            get
+            {
+                return _Phone;
+            }
+            set
+            {
+                if (_Phone != value)
+                {
+                    _Phone = value;
+                    RaisePropertyChanged("Phone");
+                }
+            }
         }
-     
-        private string  _Passport;
-        public string Passport 
-        { 
-           get
-           {
-              return _Passport;
-           } 
-           set
-           {
-              if(_Passport != value)
-              {
-                _Passport = value;
-                RaisePropertyChanged("Passport");
-              }
-           }
+
+        private string _Passport;
+        public string Passport
+        {
+            get
+            {
+                return _Passport;
+            }
+            set
+            {
+                if (_Passport != value)
+                {
+                    _Passport = value;
+                    RaisePropertyChanged("Passport");
+                }
+            }
         }
-     
-        private string  _Login;
-        public string Login 
-        { 
-           get
-           {
-              return _Login;
-           } 
-           set
-           {
-              if(_Login != value)
-              {
-                _Login = value;
-                RaisePropertyChanged("Login");
-              }
-           }
+
+        private string _Login;
+        public string Login
+        {
+            get
+            {
+                return _Login;
+            }
+            set
+            {
+                if (_Login != value)
+                {
+                    _Login = value;
+                    RaisePropertyChanged("Login");
+                }
+            }
         }
-     
-        private string  _Password;
-        public string Password 
-        { 
-           get
-           {
-              return _Password;
-           } 
-           set
-           {
-              if(_Password != value)
-              {
-                _Password = value;
-                RaisePropertyChanged("Password");
-              }
-           }
+
+        private string _Password;
+        public string Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                if (_Password != value)
+                {
+                    _Password = value;
+                    RaisePropertyChanged("Password");
+                }
+            }
         }
-     
-        private int  _IDPost;
-        public int IDPost 
-        { 
-           get
-           {
-              return _IDPost;
-           } 
-           set
-           {
-              if(_IDPost != value)
-              {
-                _IDPost = value;
-                RaisePropertyChanged("IDPost");
-              }
-           }
+
+        private int _IDPost;
+        public int IDPost
+        {
+            get
+            {
+                return _IDPost;
+            }
+            set
+            {
+                if (_IDPost != value)
+                {
+                    _IDPost = value;
+                    RaisePropertyChanged("IDPost");
+                }
+            }
         }
-     
-        private string  _Sector;
-        public string Sector 
-        { 
-           get
-           {
-              return _Sector;
-           } 
-           set
-           {
-              if(_Sector != value)
-              {
-                _Sector = value;
-                RaisePropertyChanged("Sector");
-              }
-           }
+
+        private string _Sector;
+        public string Sector
+        {
+            get
+            {
+                return _Sector;
+            }
+            set
+            {
+                if (_Sector != value)
+                {
+                    _Sector = value;
+                    RaisePropertyChanged("Sector");
+                }
+            }
         }
-     
-        private Nullable<int>  _Cabinet;
-        public Nullable<int> Cabinet 
-        { 
-           get
-           {
-              return _Cabinet;
-           } 
-           set
-           {
-              if(_Cabinet != value)
-              {
-                _Cabinet = value;
-                RaisePropertyChanged("Cabinet");
-              }
-           }
+
+        private Nullable<int> _Cabinet;
+        public Nullable<int> Cabinet
+        {
+            get
+            {
+                return _Cabinet;
+            }
+            set
+            {
+                if (_Cabinet != value)
+                {
+                    _Cabinet = value;
+                    RaisePropertyChanged("Cabinet");
+                }
+            }
         }
-     
-    
+
+
         private Post _Post;
-        public virtual Post Post 
-        { 
-          get
-          {
-              return _Post;
-          } 
-          set
-          {
-             if(_Post != value)
-             {
-                _Post = value;
-                RaisePropertyChanged("Post");
-             }
-          }
+        public virtual Post Post
+        {
+            get
+            {
+                return _Post;
+            }
+            set
+            {
+                if (_Post != value)
+                {
+                    _Post = value;
+                    RaisePropertyChanged("Post");
+                }
+            }
         }
-     
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<Ticket> _Ticket;
-        public virtual ICollection<Ticket> Ticket 
-        { 
-          get
-          {
-              return _Ticket;
-          } 
-          set
-          {
-             if(_Ticket != value)
-             {
-                _Ticket = value;
-                RaisePropertyChanged("Ticket");
-             }
-          }
+        public virtual ICollection<Ticket> Ticket
+        {
+            get
+            {
+                return _Ticket;
+            }
+            set
+            {
+                if (_Ticket != value)
+                {
+                    _Ticket = value;
+                    RaisePropertyChanged("Ticket");
+                }
+            }
         }
-     
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<Timetable> _Timetable;
-        public virtual ICollection<Timetable> Timetable 
-        { 
-          get
-          {
-              return _Timetable;
-          } 
-          set
-          {
-             if(_Timetable != value)
-             {
-                _Timetable = value;
-                RaisePropertyChanged("Timetable");
-             }
-          }
+        public virtual ICollection<Timetable> Timetable
+        {
+            get
+            {
+                return _Timetable;
+            }
+            set
+            {
+                if (_Timetable != value)
+                {
+                    _Timetable = value;
+                    RaisePropertyChanged("Timetable");
+                }
+            }
         }
-     
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         private ICollection<Visiting> _Visiting;
-        public virtual ICollection<Visiting> Visiting 
-        { 
-          get
-          {
-              return _Visiting;
-          } 
-          set
-          {
-             if(_Visiting != value)
-             {
-                _Visiting = value;
-                RaisePropertyChanged("Visiting");
-             }
-          }
+        public virtual ICollection<Visiting> Visiting
+        {
+            get
+            {
+                return _Visiting;
+            }
+            set
+            {
+                if (_Visiting != value)
+                {
+                    _Visiting = value;
+                    RaisePropertyChanged("Visiting");
+                }
+            }
         }
-     
+
+        private Employee _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new Employee
+            {
+                Id = this.Id,
+                Surname = this.Surname,
+                Name = this.Name,
+                Patronymic = this.Patronymic,
+                Birthday = this.Birthday,
+                Country = this.Country,
+                City = this.City,
+                Street = this.City,
+                Home = this.Home,
+                Housing = this.Housing,
+                Houseroom = this.Houseroom,
+                Phone = this.Phone,
+                Password = this.Password,
+                Login = this.Login,
+                Passport = this.Passport,
+                Sector = this.Sector,
+                IDPost = this.IDPost,
+                Cabinet = this.Cabinet
+            };
+        }
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.Surname = _tempValues.Surname;
+            this.Name = _tempValues.Name;
+            this.Patronymic = _tempValues.Patronymic;
+            this.Birthday = _tempValues.Birthday;
+            this.Country = _tempValues.Country;
+            this.City = _tempValues.City;
+            this.Street = _tempValues.City;
+            this.Home = _tempValues.Home;
+            this.Housing = _tempValues.Housing;
+            this.Houseroom = _tempValues.Houseroom;
+            this.Phone = _tempValues.Phone;
+            this.Password = _tempValues.Password;
+            this.Login = _tempValues.Login;
+            this.Passport = _tempValues.Passport;
+            this.Sector = _tempValues.Sector;
+            this.IDPost = _tempValues.IDPost;
+            this.Cabinet = _tempValues.Cabinet;
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Surname")
+                {
+                    if (Surname == "" || Surname == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Name")
+                {
+                    if (Name == "" || Name == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Patronymic")
+                {
+                    if (Patronymic == "" || Patronymic == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Birthday")
+                {
+                    if (Birthday == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Country")
+                {
+                    if (Country == "" || Country == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "City")
+                {
+                    if (City == "" || City == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Street")
+                {
+                    if (Street == "" || Street == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Home")
+                {
+                    if (Home <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Housing")
+                {
+                    if (Housing <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Houseroom")
+                {
+                    if (Houseroom <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Phone")
+                {
+                    if (Phone == "" || Phone == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Password")
+                {
+                    if (Password == "" || Password == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Login")
+                {
+                    if (Login == "" || Login == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Passport")
+                {
+                    if (Passport == "" || Phone == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "IDPost")
+                {
+                    if (IDPost == 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Cabinet")
+                {
+                    if (Cabinet <= 0 || Cabinet == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
+        }
     }
 }

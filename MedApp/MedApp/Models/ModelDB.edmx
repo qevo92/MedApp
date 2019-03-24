@@ -16,7 +16,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Key" Type="nchar" MaxLength="3" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
@@ -116,38 +116,20 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDEmployee" Type="int" Nullable="false" />
           <Property Name="IDMedRecord" Type="int" Nullable="false" />
+          <Property Name="IDDiagnosis" Type="int" Nullable="false" />
+          <Property Name="IDMedicament" Type="int" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Complaints" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="StartDisease" Type="date" Nullable="false" />
           <Property Name="StatePraesens" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Additionally" Type="nvarchar" MaxLength="1000" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "D:\STUDY\БДИСУБД\КУРСОВОЙ БДИСУБД\MEDAPP LAST STAGE\MEDAPP\MEDAPP\MEDAPP\MEDAPPDB.MDF.dbo.Visiting_Diagnosis" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="Visiting_Diagnosis">
-          <Key>
-            <PropertyRef Name="IDVisiting" />
-            <PropertyRef Name="IDDiagnosis" />
-          </Key>
-          <Property Name="IDVisiting" Type="int" Nullable="false" />
-          <Property Name="IDDiagnosis" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "D:\STUDY\БДИСУБД\КУРСОВОЙ БДИСУБД\MEDAPP LAST STAGE\MEDAPP\MEDAPP\MEDAPP\MEDAPPDB.MDF.dbo.Visiting_Medicament" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="Visiting_Medicament">
-          <Key>
-            <PropertyRef Name="IDVisiting" />
-            <PropertyRef Name="IDMedicament" />
-          </Key>
-          <Property Name="IDVisiting" Type="int" Nullable="false" />
-          <Property Name="IDMedicament" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Xrays">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Photo" Type="varbinary" MaxLength="100" Nullable="false" />
+          <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="1000" />
           <Property Name="IdMedRecord" Type="int" Nullable="false" />
@@ -236,27 +218,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Visiting_Diagnosis_Diagnosis">
+        <Association Name="FK_Visiting_Diagnosis">
           <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="1" />
-          <End Role="Visiting_Diagnosis" Type="Self.Visiting_Diagnosis" Multiplicity="*" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Diagnosis">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Visiting_Diagnosis">
+            <Dependent Role="Visiting">
               <PropertyRef Name="IDDiagnosis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Visiting_Diagnosis_Visiting">
-          <End Role="Visiting" Type="Self.Visiting" Multiplicity="1" />
-          <End Role="Visiting_Diagnosis" Type="Self.Visiting_Diagnosis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Visiting">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Visiting_Diagnosis">
-              <PropertyRef Name="IDVisiting" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -272,27 +242,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Visiting_Medicament_Medicament">
+        <Association Name="FK_Visiting_Medicament">
           <End Role="Medicament" Type="Self.Medicament" Multiplicity="1" />
-          <End Role="Visiting_Medicament" Type="Self.Visiting_Medicament" Multiplicity="*" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medicament">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Visiting_Medicament">
+            <Dependent Role="Visiting">
               <PropertyRef Name="IDMedicament" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Visiting_Medicament_Visiting">
-          <End Role="Visiting" Type="Self.Visiting" Multiplicity="1" />
-          <End Role="Visiting_Medicament" Type="Self.Visiting_Medicament" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Visiting">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Visiting_Medicament">
-              <PropertyRef Name="IDVisiting" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -320,18 +278,6 @@
           <EntitySet Name="Timetable" EntityType="Self.Timetable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visiting" EntityType="Self.Visiting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Xrays" EntityType="Self.Xrays" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Visiting_Diagnosis" EntityType="Self.Visiting_Diagnosis" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Visiting_Diagnosis].[IDVisiting] AS [IDVisiting], 
-    [Visiting_Diagnosis].[IDDiagnosis] AS [IDDiagnosis]
-    FROM [dbo].[Visiting_Diagnosis] AS [Visiting_Diagnosis]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Visiting_Medicament" EntityType="Self.Visiting_Medicament" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Visiting_Medicament].[IDVisiting] AS [IDVisiting], 
-    [Visiting_Medicament].[IDMedicament] AS [IDMedicament]
-    FROM [dbo].[Visiting_Medicament] AS [Visiting_Medicament]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="Employee" EntitySet="Employee" />
@@ -360,25 +306,17 @@
             <End Role="Shift" EntitySet="Shift" />
             <End Role="Timetable" EntitySet="Timetable" />
           </AssociationSet>
-          <AssociationSet Name="FK_Visiting_Diagnosis_Diagnosis" Association="Self.FK_Visiting_Diagnosis_Diagnosis">
+          <AssociationSet Name="FK_Visiting_Diagnosis" Association="Self.FK_Visiting_Diagnosis">
             <End Role="Diagnosis" EntitySet="Diagnosis" />
-            <End Role="Visiting_Diagnosis" EntitySet="Visiting_Diagnosis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visiting_Diagnosis_Visiting" Association="Self.FK_Visiting_Diagnosis_Visiting">
             <End Role="Visiting" EntitySet="Visiting" />
-            <End Role="Visiting_Diagnosis" EntitySet="Visiting_Diagnosis" />
           </AssociationSet>
           <AssociationSet Name="FK_Visiting_Employee" Association="Self.FK_Visiting_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Visiting" EntitySet="Visiting" />
           </AssociationSet>
-          <AssociationSet Name="FK_Visiting_Medicament_Medicament" Association="Self.FK_Visiting_Medicament_Medicament">
+          <AssociationSet Name="FK_Visiting_Medicament" Association="Self.FK_Visiting_Medicament">
             <End Role="Medicament" EntitySet="Medicament" />
-            <End Role="Visiting_Medicament" EntitySet="Visiting_Medicament" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Visiting_Medicament_Visiting" Association="Self.FK_Visiting_Medicament_Visiting">
             <End Role="Visiting" EntitySet="Visiting" />
-            <End Role="Visiting_Medicament" EntitySet="Visiting_Medicament" />
           </AssociationSet>
           <AssociationSet Name="FK_Visiting_MedRecord" Association="Self.FK_Visiting_MedRecord">
             <End Role="MedRecord" EntitySet="MedRecord" />
@@ -402,11 +340,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Key" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Visiting" Relationship="Self.Visiting_Diagnosis" FromRole="Diagnosis" ToRole="Visiting" />
+          <NavigationProperty Name="Visiting" Relationship="Self.FK_Visiting_Diagnosis" FromRole="Diagnosis" ToRole="Visiting" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -442,7 +380,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Visiting" Relationship="Self.Visiting_Medicament" FromRole="Medicament" ToRole="Visiting" />
+          <NavigationProperty Name="Visiting" Relationship="Self.FK_Visiting_Medicament" FromRole="Medicament" ToRole="Visiting" />
         </EntityType>
         <EntityType Name="MedRecord">
           <Key>
@@ -518,22 +456,24 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDEmployee" Type="Int32" Nullable="false" />
           <Property Name="IDMedRecord" Type="Int32" Nullable="false" />
+          <Property Name="IDDiagnosis" Type="Int32" Nullable="false" />
+          <Property Name="IDMedicament" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Complaints" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StartDisease" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="StatePraesens" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Additionally" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Diagnosis" Relationship="Self.FK_Visiting_Diagnosis" FromRole="Visiting" ToRole="Diagnosis" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Visiting_Employee" FromRole="Visiting" ToRole="Employee" />
+          <NavigationProperty Name="Medicament" Relationship="Self.FK_Visiting_Medicament" FromRole="Visiting" ToRole="Medicament" />
           <NavigationProperty Name="MedRecord" Relationship="Self.FK_Visiting_MedRecord" FromRole="Visiting" ToRole="MedRecord" />
-          <NavigationProperty Name="Diagnosis" Relationship="Self.Visiting_Diagnosis" FromRole="Visiting" ToRole="Diagnosis" />
-          <NavigationProperty Name="Medicament" Relationship="Self.Visiting_Medicament" FromRole="Visiting" ToRole="Medicament" />
         </EntityType>
         <EntityType Name="Xrays">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Photo" Type="Binary" MaxLength="100" FixedLength="false" Nullable="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="IdMedRecord" Type="Int32" Nullable="false" />
@@ -548,6 +488,18 @@
             </Principal>
             <Dependent Role="Timetable">
               <PropertyRef Name="IdDay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Visiting_Diagnosis">
+          <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Diagnosis">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDDiagnosis" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -599,6 +551,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Visiting_Medicament">
+          <End Role="Medicament" Type="Self.Medicament" Multiplicity="1" />
+          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visiting">
+              <PropertyRef Name="IDMedicament" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MedRecord_Xrays">
           <End Role="MedRecord" Type="Self.MedRecord" Multiplicity="1" />
           <End Role="Xrays" Type="Self.Xrays" Multiplicity="*" />
@@ -647,14 +611,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Visiting_Diagnosis">
-          <End Role="Diagnosis" Type="Self.Diagnosis" Multiplicity="*" />
-          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
-        </Association>
-        <Association Name="Visiting_Medicament">
-          <End Role="Medicament" Type="Self.Medicament" Multiplicity="*" />
-          <End Role="Visiting" Type="Self.Visiting" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="MedAppDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Day" EntityType="Self.Day" />
           <EntitySet Name="Diagnosis" EntityType="Self.Diagnosis" />
@@ -670,6 +626,10 @@
           <AssociationSet Name="FK_Timetable_Day" Association="Self.FK_Timetable_Day">
             <End Role="Day" EntitySet="Day" />
             <End Role="Timetable" EntitySet="Timetable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Diagnosis" Association="Self.FK_Visiting_Diagnosis">
+            <End Role="Diagnosis" EntitySet="Diagnosis" />
+            <End Role="Visiting" EntitySet="Visiting" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Post" Association="Self.FK_Employee_Post">
             <End Role="Post" EntitySet="Post" />
@@ -687,6 +647,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Visiting" EntitySet="Visiting" />
           </AssociationSet>
+          <AssociationSet Name="FK_Visiting_Medicament" Association="Self.FK_Visiting_Medicament">
+            <End Role="Medicament" EntitySet="Medicament" />
+            <End Role="Visiting" EntitySet="Visiting" />
+          </AssociationSet>
           <AssociationSet Name="FK_MedRecord_Xrays" Association="Self.FK_MedRecord_Xrays">
             <End Role="MedRecord" EntitySet="MedRecord" />
             <End Role="Xrays" EntitySet="Xrays" />
@@ -702,14 +666,6 @@
           <AssociationSet Name="FK_Timetable_Shift" Association="Self.FK_Timetable_Shift">
             <End Role="Shift" EntitySet="Shift" />
             <End Role="Timetable" EntitySet="Timetable" />
-          </AssociationSet>
-          <AssociationSet Name="Visiting_Diagnosis" Association="Self.Visiting_Diagnosis">
-            <End Role="Diagnosis" EntitySet="Diagnosis" />
-            <End Role="Visiting" EntitySet="Visiting" />
-          </AssociationSet>
-          <AssociationSet Name="Visiting_Medicament" Association="Self.Visiting_Medicament">
-            <End Role="Medicament" EntitySet="Medicament" />
-            <End Role="Visiting" EntitySet="Visiting" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -837,6 +793,8 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IDEmployee" ColumnName="IDEmployee" />
                 <ScalarProperty Name="IDMedRecord" ColumnName="IDMedRecord" />
+                <ScalarProperty Name="IDDiagnosis" ColumnName="IDDiagnosis" />
+                <ScalarProperty Name="IDMedicament" ColumnName="IDMedicament" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Complaints" ColumnName="Complaints" />
                 <ScalarProperty Name="StartDisease" ColumnName="StartDisease" />
@@ -856,22 +814,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Visiting_Diagnosis" TypeName="MedAppDBModel.Visiting_Diagnosis" StoreEntitySet="Visiting_Diagnosis">
-            <EndProperty Name="Diagnosis">
-              <ScalarProperty Name="Id" ColumnName="IDDiagnosis" />
-            </EndProperty>
-            <EndProperty Name="Visiting">
-              <ScalarProperty Name="Id" ColumnName="IDVisiting" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Visiting_Medicament" TypeName="MedAppDBModel.Visiting_Medicament" StoreEntitySet="Visiting_Medicament">
-            <EndProperty Name="Medicament">
-              <ScalarProperty Name="Id" ColumnName="IDMedicament" />
-            </EndProperty>
-            <EndProperty Name="Visiting">
-              <ScalarProperty Name="Id" ColumnName="IDVisiting" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

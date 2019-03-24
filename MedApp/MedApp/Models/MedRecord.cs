@@ -13,7 +13,7 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class MedRecord : BindableBase
+    public partial class MedRecord : BindableBase, IEditableObject, IDataErrorInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MedRecord()
@@ -349,6 +349,146 @@ namespace MedApp.Models
              }
           }
         }
-     
+
+        private MedRecord _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new MedRecord
+            {
+                Id = this.Id,
+                Surname = this.Surname,
+                Name = this.Name,
+                Patronymic = this.Patronymic,
+                Birthday = this.Birthday,
+                Country = this.Country,
+                City = this.City,
+                Street = this.City,
+                Home = this.Home,
+                Housing = this.Housing,
+                Houseroom = this.Houseroom,
+                Phone = this.Phone,
+                Passport = this.Passport,
+                Sector = this.Sector,
+                Organization = this.Organization,
+                Post = this.Post
+            };
+        }
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.Surname = _tempValues.Surname;
+            this.Name = _tempValues.Name;
+            this.Patronymic = _tempValues.Patronymic;
+            this.Birthday = _tempValues.Birthday;
+            this.Country = _tempValues.Country;
+            this.City = _tempValues.City;
+            this.Street = _tempValues.City;
+            this.Home = _tempValues.Home;
+            this.Housing = _tempValues.Housing;
+            this.Houseroom = _tempValues.Houseroom;
+            this.Phone = _tempValues.Phone;
+            this.Passport = _tempValues.Passport;
+            this.Sector = _tempValues.Sector;
+            this.Organization = _tempValues.Organization;
+            this.Post = _tempValues.Post;
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "Surname")
+                {
+                    if (Surname == "" || Surname == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Name")
+                {
+                    if (Name == "" || Name == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Patronymic")
+                {
+                    if (Patronymic == "" || Patronymic == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Birthday")
+                {
+                    if (Birthday == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Country")
+                {
+                    if (Country == "" || Country == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "City")
+                {
+                    if (City == "" || City == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Street")
+                {
+                    if (Street == "" || Street == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Home")
+                {
+                    if (Home <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Housing")
+                {
+                    if (Housing <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Houseroom")
+                {
+                    if (Houseroom <= 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Phone")
+                {
+                    if (Phone == "" || Phone == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Passport")
+                {
+                    if (Passport == "" || Phone == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Sector")
+                {
+                    if (Sector == "" || Sector == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Organization")
+                {
+                    if (Organization == "" || Organization == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Post")
+                {
+                    if (Post == "" || Post == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
+        }
+
     }
 }

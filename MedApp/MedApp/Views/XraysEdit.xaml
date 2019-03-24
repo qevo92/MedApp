@@ -1,0 +1,78 @@
+﻿<Window x:Class="MedApp.Views.XraysEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:MedApp.Views"
+        mc:Ignorable="d"
+        Title="Ренген снимок" Height="460" Width="380" MaxHeight="460" MaxWidth="380" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="okbt">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=TBbirthday, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBDescription, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBPhoto, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <DatePicker SelectedDate="{Binding Path=selectedXrays.Date}" Margin="3"  VerticalAlignment="Top"
+                        Height="24" BorderThickness="0,0,0,1" x:Name="TBbirthday">
+            </DatePicker>
+            <TextBox  Margin="3" Height="200"  x:Name="TBDescription" TextWrapping="Wrap" VerticalAlignment="Stretch">
+                <TextBox.Text>
+                    <Binding Path="selectedXrays.Description" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Image VerticalAlignment="Stretch" Height="120" Source="{Binding selectedXrays.Photo}"  x:Name="TBPhoto">
+                
+            </Image>
+            <Button Height="20" Margin="10,10,10,10" VerticalAlignment="Bottom" Command="{Binding AddImage}" >Добавить фото</Button>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveXrays}"  Style="{StaticResource okbt}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Content="Отмена" Margin="3" Grid.Column="1" Command="{Binding CanselXrays}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+       
+    </Grid>
+</Window>

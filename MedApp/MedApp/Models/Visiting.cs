@@ -13,15 +13,8 @@ namespace MedApp.Models
     using System.Collections.Generic;
     using Prism.Mvvm;
     using System.ComponentModel;
-    public partial class Visiting : BindableBase
+    public partial class Visiting : BindableBase, IEditableObject, IDataErrorInfo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Visiting()
-        {
-            this.Diagnosis = new HashSet<Diagnosis>();
-            this.Medicament = new HashSet<Medicament>();
-        }
-    
         private int  _Id;
         public int Id 
         { 
@@ -69,6 +62,40 @@ namespace MedApp.Models
               {
                 _IDMedRecord = value;
                 RaisePropertyChanged("IDMedRecord");
+              }
+           }
+        }
+     
+        private int  _IDDiagnosis;
+        public int IDDiagnosis 
+        { 
+           get
+           {
+              return _IDDiagnosis;
+           } 
+           set
+           {
+              if(_IDDiagnosis != value)
+              {
+                _IDDiagnosis = value;
+                RaisePropertyChanged("IDDiagnosis");
+              }
+           }
+        }
+     
+        private int  _IDMedicament;
+        public int IDMedicament 
+        { 
+           get
+           {
+              return _IDMedicament;
+           } 
+           set
+           {
+              if(_IDMedicament != value)
+              {
+                _IDMedicament = value;
+                RaisePropertyChanged("IDMedicament");
               }
            }
         }
@@ -159,6 +186,23 @@ namespace MedApp.Models
         }
      
     
+        private Diagnosis _Diagnosis;
+        public virtual Diagnosis Diagnosis 
+        { 
+          get
+          {
+              return _Diagnosis;
+          } 
+          set
+          {
+             if(_Diagnosis != value)
+             {
+                _Diagnosis = value;
+                RaisePropertyChanged("Diagnosis");
+             }
+          }
+        }
+     
         private Employee _Employee;
         public virtual Employee Employee 
         { 
@@ -172,6 +216,23 @@ namespace MedApp.Models
              {
                 _Employee = value;
                 RaisePropertyChanged("Employee");
+             }
+          }
+        }
+     
+        private Medicament _Medicament;
+        public virtual Medicament Medicament 
+        { 
+          get
+          {
+              return _Medicament;
+          } 
+          set
+          {
+             if(_Medicament != value)
+             {
+                _Medicament = value;
+                RaisePropertyChanged("Medicament");
              }
           }
         }
@@ -192,42 +253,90 @@ namespace MedApp.Models
              }
           }
         }
-     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<Diagnosis> _Diagnosis;
-        public virtual ICollection<Diagnosis> Diagnosis 
-        { 
-          get
-          {
-              return _Diagnosis;
-          } 
-          set
-          {
-             if(_Diagnosis != value)
-             {
-                _Diagnosis = value;
-                RaisePropertyChanged("Diagnosis");
-             }
-          }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                string result = null;
+                if (columnName == "IDEmployee")
+                {
+                    if (IDEmployee == 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "IDMedRecord")
+                {
+                    if (IDMedRecord == 0)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Date")
+                {
+                    if (Date == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Complaints")
+                {
+                    if (Complaints == "" || Complaints == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "StartDisease")
+                {
+                    if (StartDisease == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "StatePraesens")
+                {
+                    if (StatePraesens == "" || StatePraesens == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                if (columnName == "Additionally")
+                {
+                    if (Additionally == "" || Additionally == null)
+                        result = "Данная строка не может быть пустой";
+                }
+                return result;
+            }
         }
-     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        private ICollection<Medicament> _Medicament;
-        public virtual ICollection<Medicament> Medicament 
-        { 
-          get
-          {
-              return _Medicament;
-          } 
-          set
-          {
-             if(_Medicament != value)
-             {
-                _Medicament = value;
-                RaisePropertyChanged("Medicament");
-             }
-          }
+
+        private Visiting _tempValues;
+        public void BeginEdit()
+        {
+            _tempValues = new Visiting
+            {
+                Id = this.Id,
+                IDEmployee = this.IDEmployee,
+                IDMedRecord = this.IDMedRecord,
+                IDDiagnosis = this.IDDiagnosis,
+                IDMedicament = this.IDMedicament,
+                Date = this.Date,
+                Complaints = this.Complaints,
+                StartDisease = this.StartDisease,
+                StatePraesens = this.StatePraesens,
+                Additionally = this.Additionally
+            };
         }
-     
+
+        public void EndEdit()
+        {
+            _tempValues = null;
+        }
+
+        public void CancelEdit()
+        {
+            if (_tempValues == null) return;
+
+            this.Id = _tempValues.Id;
+            this.IDEmployee = _tempValues.IDEmployee;
+            this.IDMedRecord = _tempValues.IDMedRecord;
+            this.IDDiagnosis = _tempValues.IDDiagnosis;
+            this.IDMedicament = _tempValues.IDMedicament;
+            this.Date = _tempValues.Date;
+            this.Complaints = _tempValues.Complaints;
+            this.StartDisease = _tempValues.StartDisease;
+            this.StatePraesens = _tempValues.StatePraesens;
+            this.Additionally = _tempValues.Additionally;
+        }
     }
 }

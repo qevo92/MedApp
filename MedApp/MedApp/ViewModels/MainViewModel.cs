@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MedApp.Models;
+using MedApp.Views;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace MedApp.ViewModels
 {
-    class MainViewModel
+    public class MainViewModel : BindableBase
     {
+        public Employee currentemployee = new Employee();
+
+        public Employee Сurrentemployee
+        {
+            get { return currentemployee; }
+            set
+            {
+                currentemployee = value;
+                RaisePropertyChanged("Сurrentemployee");
+            }
+        }
+
+        public MainViewModel(Employee employee)
+        {
+            currentemployee = employee;
+        }
     }
 }

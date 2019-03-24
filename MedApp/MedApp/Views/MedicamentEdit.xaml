@@ -1,0 +1,87 @@
+﻿<Window x:Class="MedApp.Views.MedicamentEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:MedApp.Views"
+        mc:Ignorable="d"
+        Title="Медикамент"  Height="286" Width="380" MaxHeight="310" MaxWidth="380" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="okbt">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=TBName, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=TBDescription, Path=(Validation.HasError)}" Value="True">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="438*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,0.4,0">
+                <Label Content="Название" HorizontalAlignment="Right"></Label>
+                <Label Content="Описание" HorizontalAlignment="Right"></Label>
+            </StackPanel>
+            <StackPanel Grid.ColumnSpan="2" Margin="94,0,0,0" >
+                <TextBox  Margin="3" Height="20" BorderThickness="0,0,0,2" x:Name="TBName">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedicament.Name" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox  Margin="3" Height="150"  x:Name="TBDescription" TextWrapping="Wrap">
+                    <TextBox.Text>
+                        <Binding Path="selectedMedicament.Description" UpdateSourceTrigger="LostFocus" ValidatesOnDataErrors="True" NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Margin="3" Grid.Column="0" Content="Готово" Command="{Binding SaveMedicament}"  Style="{StaticResource okbt}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Content="Отмена" Margin="3" Grid.Column="1" Command="{Binding CanselEdit}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

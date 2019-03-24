@@ -6,6 +6,15 @@
              xmlns:local="clr-namespace:MedApp.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="filtertrig">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=CB, Path=Text}" Value="">
+                    <Setter Property="Control.IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid x:Name="PatientMainGrid">
             <Grid.RowDefinitions>
@@ -16,7 +25,7 @@
                 <DataGrid  x:Name="grid"
                        local:DataGridTextSearch.SearchValue="{Binding ElementName=SearchBox, Path=Text, UpdateSourceTrigger=PropertyChanged}"
                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"  Grid.Row="1" IsReadOnly="True"
-                                  AutoGenerateColumns="False" ItemsSource="{Binding MedRecords , Mode=OneWay}"
+                                  AutoGenerateColumns="False" ItemsSource="{Binding FilterCollectionView , Mode=OneWay}" 
                                   SelectedItem="{Binding SelectedMedRecord,Mode=TwoWay}">
                     <DataGrid.Resources>
                         <local:SearchValueConverter x:Key="SearchValueConverter" />
@@ -24,34 +33,36 @@
                             <Setter Property="local:DataGridTextSearch.IsTextMatch">
                                 <Setter.Value>
                                     <MultiBinding Converter="{StaticResource SearchValueConverter}">
-                                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" /> <!--поиск по тексту дата грид-->
                                         <Binding RelativeSource="{RelativeSource Self}" Path="(local:DataGridTextSearch.SearchValue)" />
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
                                 <Trigger Property="local:DataGridTextSearch.IsTextMatch" Value="True">
+                                    <Setter Property="IsSelected" Value="True" />
                                     <Setter Property="Background" Value="Orange" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
                     </DataGrid.Resources>
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding MedRecordOpen}" />
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Path=Surname,Mode=TwoWay }" Header="Фамилия" Width="*" />
+                        <DataGridTextColumn Binding="{Binding Path=Surname,Mode=TwoWay }" x:Name="Surname" Header="Фамилия" Width="*" />
                         <DataGridTextColumn Binding="{Binding Path=Name,Mode=TwoWay}" Header="Имя" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Path=Patronymic,Mode=TwoWay}" Header="Отчество" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding Path=Birthday, StringFormat=d,Mode=TwoWay}" Header="Дата рождения" Width="*" Visibility="Hidden"/>
-                        <DataGridTextColumn Binding="{Binding Path=Country,Mode=TwoWay}" Header="Страна" Width="*" Visibility="Hidden"/>
-                        <DataGridTextColumn Binding="{Binding Path=City,Mode=TwoWay}" Header="Город" Width="*" Visibility="Hidden"/>
-                        <DataGridTextColumn Binding="{Binding Path=Address,Mode=TwoWay}" Header="Адрес" Width="*" Visibility="Visible"/>
-                        <DataGridTextColumn Binding="{Binding Path=Phone,Mode=TwoWay}" Header="Номер тел" Width="*" Visibility="Hidden"/>
+                        <DataGridTextColumn  Binding="{Binding Path=Patronymic,Mode=TwoWay}" Header="Отчество" Width="*"/>
+                        <DataGridTextColumn  Binding="{Binding Path=City,Mode=TwoWay}" Header="Город" Width="*"/>
+                        <DataGridTextColumn  Binding="{Binding Path=Street,Mode=TwoWay}" Header="Улица" Width="*"/>
+                        <DataGridTextColumn  Binding="{Binding Path=Home,Mode=TwoWay}" Header="Дом" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="0,9*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Button Height="20" Width="20" Margin="2" Padding="0"  Command="{Binding AddMedRecord}">
@@ -63,11 +74,28 @@
                     <Button Height="20" Width="20" Margin="2" Command="{Binding RemoveMedRecord}">
                         <Image Source="/MedApp;component/Resources/delete.png"></Image>
                     </Button>
-
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label>Поиск</Label>
-                    <TextBox Height="20" Name="SearchBox" Margin="0,0,0,-0.2" Width="153"></TextBox>
+                    <TextBox Height="20" Name="SearchBox" Margin="0,0,0,0" Width="153">
+                    </TextBox>
+                    <ComboBox Width="200" Margin="30,0,0,0" x:Name="CB"
+                              Height="20" 
+                              SelectedValue="{Binding _searchKey, Mode=TwoWay}"
+                              SelectedValuePath="Content">
+                        <ComboBoxItem>Фамилия</ComboBoxItem>
+                        <ComboBoxItem>Имя</ComboBoxItem>
+                        <ComboBoxItem>Отчество</ComboBoxItem>
+                        <ComboBoxItem>Город</ComboBoxItem>
+                        <ComboBoxItem>Улица</ComboBoxItem>
+                        <ComboBoxItem>Дом</ComboBoxItem>
+                    </ComboBox>
+                    <Label>Фильтровать</Label>
+
+                    <TextBox Height="20" Margin="0,0,0,0" Width="153" Style="{StaticResource filtertrig}"
+                             Text="{Binding FilterString,UpdateSourceTrigger=PropertyChanged}" >             
+                        
+                    </TextBox>                              
                 </StackPanel>
             </Grid>
         </Grid>
